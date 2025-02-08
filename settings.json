@@ -1,0 +1,5 @@
+{
+    "username": "Lyra",
+    "serverUrl": "ws://localhost:3000",
+    "customMessage": "{user} loves you!"
+}
