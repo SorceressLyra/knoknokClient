@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun run ./src/index.ts",
-    "build": "bun build src/index.ts --compile --windows-icon=src/images/bling.ico --windows-hide-console --outfile build/knoknok.exe"
+    "build": "bun build src/index.ts src/images/* --compile --target=bun-windows-x64 --windows-icon=/src/images/bling.ico --windows-hide-console --outfile build/knoknok.exe"
   },
   "devDependencies": {
     "@types/bun": "latest",

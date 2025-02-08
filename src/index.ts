@@ -1,5 +1,5 @@
 import Tray from 'trayicon';
-import icon from "./images/bell.png" with { type: "file" };
+import icon from "./images/kirby.gif" with { type: "file" };
 import { file, spawn, spawnSync } from "bun";
 import { settings, reloadSettings } from "./settings.ts";
 import { SocketManager } from "./socketConn.ts";
@@ -16,7 +16,7 @@ const events = new SocketEvents({
         
         if(data.type === "knock"){
             Notification(`${data.username} knocks!`, data.message, ["Yahoo"], (response, metadata) => {
-                socket.send(JSON.stringify({type:"knockAck",  username: settings.username, message: `I'm here!`, id: data.id}));
+                socket.send(JSON.stringify({type:"knockAck",  username: settings.username, message: `I'm here!`, id: da ta.id}));
             });
         }
     },
