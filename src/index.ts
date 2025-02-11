@@ -1,34 +1,26 @@
 import Tray from 'trayicon';
-import icon from "./images/kirby.gif" with { type: "file" };
+import icon from "./images/icon.png" with { type: "file" };
 import { file, spawn, spawnSync } from "bun";
 import { settings, reloadSettings } from "./settings.ts";
 import { SocketManager } from "./socketConn.ts";
-import SocketEvents from './socketEvents.ts';
+import SocketEvent from './socketEvent.ts';
 import {Notification} from "./notifier.ts"
 
 
 let trayRef: Tray | undefined;
 const iconArrayBuffer = await file(icon).arrayBuffer();
 const iconBuffer = Buffer.from(iconArrayBuffer);
-const events = new SocketEvents({
-    onMessage: (event) => {
-        const data = JSON.parse(event.data);
-        
-        if(data.type === "knock"){
-            Notification(`${data.username} knocks!`, data.message, ["Yahoo"], (response, metadata) => {
-                socket.send(JSON.stringify({type:"knockAck",  username: settings.username, message: `I'm here!`, id: da ta.id}));
-            });
-        }
-    },
-    onConnect: async () => {
-        if (trayRef)
-            await renderTray(trayRef);
-    },
-    onClose: async () => {
-        if (trayRef)
-            await renderTray(trayRef);
-    }
-});
+const events: SocketEvent[] = [
+    new SocketEvent("knock", (data) => {
+        console.log("Knock received", data);
+        if(data.username === settings.username) return;
+
+        Notification("Knock knock!", `${data.message}`, ["Okie!"], (response, metadata) => {});
+    }),
+    new SocketEvent("connection", (data) => {
+        console.log("Connection event", data);
+    })
+];
 const socket = new SocketManager(events);
 
 socket.connectSocket();
@@ -46,7 +38,7 @@ async function renderTray(tray: Tray) {
             }
 
             console.log('Knocking...');
-            socket.send(JSON.stringify({type:"knock",  username: settings.username, message: settings.customMessage, id: Date.now() }));
+            socket.send("knock", { username: settings.username, message: settings.customMessage, id: Date.now()});
 
         }
     });

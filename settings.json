@@ -1,5 +1,5 @@
 {
-    "username": "Lyra",
-    "serverUrl": "ws://localhost:3000",
+    "username": "Prism",
+    "serverUrl": "http://192.168.50.14:3000",
     "customMessage": "{user} loves you!"
 }

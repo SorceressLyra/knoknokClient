@@ -6,7 +6,7 @@ import * as os from 'os';
 const settingsPath = 'settings.json';
 const defaultSettings: { [key: string]: any } = {
     "username": os.userInfo().username,
-    "serverUrl": "ws://localhost:3000",
+    "serverUrl": "http://localhost:3000",
     "customMessage": "{user} loves you!"
 };
 
